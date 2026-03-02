@@ -1,36 +1,40 @@
 import java.util.Scanner;
-public class PalindromeCheckerApp{
-    public static void main(String[] args){
-        System.out.println("Welcome to Palindrome Checker Mangement System");
-        System.out.println("Version : 1.0");
-        System.out.println("System Initialized Successfully.");
+import java.util.Stack;
 
+public class PalindromeCheckerApp {
 
+    public static void main(String[] args) {
 
-        String input = "radar";
-        char[] chars = input.toCharArray();
-        int start = 0;
+        Scanner scanner = new Scanner(System.in);
 
-        int end = chars.length - 1;
+        System.out.println("=== Stack-Based Palindrome Checker ===");
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
 
-        boolean isPalindrome = true;
+        // Convert input to lowercase to make it case-insensitive
+        String normalizedInput = input.toLowerCase();
 
-        while (start < end) {
-            if (chars[start] != chars[end]) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
+        // Create a stack of characters
+        Stack<Character> stack = new Stack<>();
+
+        // Push each character into the stack
+        for (int i = 0; i < normalizedInput.length(); i++) {
+            stack.push(normalizedInput.charAt(i));
         }
 
-        // Print result
-        if (isPalindrome)
-            System.out.println(input + " is a Palindrome");
-        else
-            System.out.println(input + " is NOT a Palindrome");
+        // Pop characters to build reversed string
+        String reversedString = "";
+        while (!stack.isEmpty()) {
+            reversedString += stack.pop();
+        }
 
+        // Compare original and reversed strings
+        if (normalizedInput.equals(reversedString)) {
+            System.out.println("Result: The given string is a palindrome.");
+        } else {
+            System.out.println("Result: The given string is NOT a palindrome.");
+        }
 
-
+        scanner.close();
     }
 }
